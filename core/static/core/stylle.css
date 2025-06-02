@@ -1,0 +1,140 @@
+/* Featurs Section Styles */
+.featurs {
+    background-color: #f8f9fa; /* Light background for contrast */
+}
+
+.featurs-item {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.featurs-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+.featurs-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6c757d; /* Bootstrap secondary color */
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+}
+
+.featurs-content h5 {
+    font-size: 1.25rem;
+    color: #212529;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.featurs-content p {
+    color: #6c757d;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+
+/* 201 - 400 */
+
+/* Tabs Styling */
+.tab-class .nav-pills .nav-item .active {
+    background-color: #28a745 !important;
+    color: #fff !important;
+}
+
+.tab-class .nav-pills .nav-item a {
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+}
+
+.tab-class .nav-pills .nav-item a:hover {
+    background-color: #218838;
+    color: #fff;
+}
+
+/* Products Section */
+.fruite {
+    background-color: #f8f9fa;
+}
+
+.fruite-item {
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
+}
+
+.fruite-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.fruite-img img {
+    transition: transform 0.3s ease;
+}
+
+.fruite-item:hover .fruite-img img {
+    transform: scale(1.05);
+}
+
+/* Product Info Box */
+.fruite-item .p-4 {
+    background: #fff;
+}
+
+.fruite-item h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.fruite-item p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Labels */
+.fruite-item .position-absolute {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Buttons */
+.fruite-item .btn {
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.fruite-item .btn:hover {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff !important;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .fruite-item h4 {
+        font-size: 18px;
+    }
+    .fruite-item p {
+        font-size: 13px;
+    }
+    .fruite-item .btn {
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .tab-class .nav-pills .nav-item {
+        width: 100%;
+        margin: 5px 0;
+    }
+    .tab-class .nav-pills .nav-item a {
+        justify-content: center;
+        width: 100%;
+    }
+}
