@@ -16,23 +16,22 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from core.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
-
-
+from cart.views import *
 
 urlpatterns = [
+    path("cart/",include('cart.urls')),
     path("admin/", admin.site.urls),
     path("",index,name="index"),
     path("shop/",TemplateView.as_view(template_name="core/shop.html"),name="shop"),
     path("shop-detail/",TemplateView.as_view(template_name="core/shop-detail.html"),name="shop"),
-    path("cart/",TemplateView.as_view(template_name="core/cart.html"),name="cart"),
     path("chackout/",TemplateView.as_view(template_name="core/chackout.html"),name="checkout"),
     path("contact/",TemplateView.as_view(template_name="core/contect.html"),name="contect"),
-
+    path('fruit/<id>/', fruit),
 
 ]
 if settings.DEBUG:
