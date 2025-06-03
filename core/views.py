@@ -23,13 +23,10 @@ def fruit(request,id):
 
     obj1 = Fruits.objects.get(id=id)
     
-    quantity = 1
 
     Cart.objects.create(
         product_name = obj1.product_name,
-        quantity = quantity,
         price = obj1.price,
-        total = obj1.price * quantity
         )
     
     return redirect("/")

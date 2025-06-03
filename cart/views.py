@@ -1,34 +1,37 @@
-from django.shortcuts import render, redirect
-from .models import *
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import * 
+from django.db.models import Q,Sum
 # Create your views here.
 
 def cart(request):
     obj = Cart.objects.all()
-    obj.total()
-    return render(request,"core/cart.html",{'carts':obj} )
 
-def cart_modify_minos(m):
-    id = m
-    obj = Cart.objects.get(id=id)
-    quantity = 1
-    if m and quantity > 1:
-        quantity =-1
-
+    total = Cart.objects.aggregate(
+        total=Sum('total',filter=Q(total__isnull=False)))
     
-    obj.total = obj.price * quantity
+    t = total['total']
+    return render(request,"core/cart.html",{'carts':obj,'total':t} )
 
-    return redirect("home/cart")
+def cart_modify_minos(request, m):
+    obj = get_object_or_404(Cart, id=m)
+    
+    if obj.quantity > 1:
+        obj.quantity -= 1
+        obj.save()
+    
+    return redirect("cart")
 
+def cart_modify_plus(request, p):
+    obj = get_object_or_404(Cart, id=p)
+    obj.quantity += 1
+    obj.save()
+    
+    return redirect("cart")
 
+def cart_delete(request, d):
 
-def cart_modify_plus(p):
-    id = p
-    quantity = 1
-    if p:
-        quantity =+1
-   
+    obj = get_object_or_404(Cart, id=d)
 
-    obj = Cart.objects.get(id=id)
-    obj.total = obj.price * quantity
+    obj.delete()
 
-    return redirect("home/cart")
+    return redirect("cart")
