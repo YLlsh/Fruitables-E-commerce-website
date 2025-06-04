@@ -428,7 +428,7 @@
                             <p>{{ veg.description }}</p>
                             <div class="d-flex justify-content-between flex-lg-wrap">
                                 <p class="text-dark fs-5 fw-bold mb-0">₹{{ veg.price }}</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                <a href="" class="btn border border-secondary rounded-pill px-3 text-primary">
                                     <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                                 </a>
                             </div>
@@ -443,28 +443,40 @@
                 <nav>
                     <ul class="pagination">
                         {% if page_obj.has_previous %}
-                        <li class="page-item"><a class="page-link"
+                        <li class="li page-item"><a class="page-link"
                                 href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
                         {% endif %}
 
                         {% for num in page_obj.paginator.page_range %}
                         {% if page_obj.number == num %}
-                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        <li class=" li page-item active"><span class="page-link">{{ num }}</span></li>
                         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li
-                            class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                            class="li page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
                             {% endif %}
                             {% endfor %}
 
                             {% if page_obj.has_next %}
-                            <li class="page-item"><a href="?page={{ page_obj.next_page_number }}"
-                                    onclick="window.scrollTo(0, 50);">Next</a>
-                            </li>
+                            <li class="page-item"><a class="page-link"
+                                    href="?page={{ page_obj.next_page_number }}">Next</a></li>
                             {% endif %}
                     </ul>
                 </nav>
             </div>
         </div>
     </div>
+
+    <script>
+        // Check if the URL contains a "page=" parameter
+        window.addEventListener("load", function () {
+            if (window.location.search.includes("page=")) {
+                const pagination = document.querySelector(".pagination");
+                if (pagination) {
+                    pagination.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            }
+        });
+    </script>
+
 
     <!-- Vesitable Shop End -->
 

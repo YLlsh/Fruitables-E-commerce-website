@@ -474,26 +474,53 @@
 
 
 /*** Single Page Start ***/
-.pagination {
+/* .pagination {
     display: inline-block;
+} */
+/* .li page-item{
+    
 }
-  
-.pagination a {
-    color: var(--bs-dark);
+   */.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding-left: 0;
+}
+
+.page-item {
+    margin: 0 5px; /* spacing between buttons */
+}
+
+.page-link {
     padding: 10px 16px;
     text-decoration: none;
-    transition: 0.5s;
-    border: 1px solid var(--bs-secondary);
-    margin: 0 4px;
+    transition: background-color 0.3s;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #fd7e14;
+;
 }
-  
+
+.page-link:hover {
+    background-color: #f0f0f0;
+    text-decoration: none;
+}
+
+.page-item.active .page-link {
+    background-color: #ffb524;
+
+    color: white;
+    border-color: #ffb524;
+}
+
+/*   
 .pagination a.active {
     background-color: var(--bs-primary);
     color: var(--bs-light);
     border: 1px solid var(--bs-secondary);
-}
+} */
   
-.pagination a:hover:not(.active) {background-color: var(--bs-primary)}
+/* .pagination a:hover:not(.active) {background-color: var(--bs-primary)} */
 
 .nav.nav-tabs .nav-link.active {
     border-bottom: 2px solid var(--bs-secondary) !important;
