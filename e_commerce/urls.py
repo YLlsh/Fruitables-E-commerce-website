@@ -24,14 +24,15 @@ from django.views.generic import TemplateView
 from cart.views import *
 
 urlpatterns = [
-    path("cart/",include('cart.urls')),
     path("admin/", admin.site.urls),
-    path("",index,name="index"),
+    path("", include('core.urls')),
+    path("shop-detail/", include('products.urls')),
+    path("cart/",include('cart.urls')),
     path("shop/",TemplateView.as_view(template_name="core/shop.html"),name="shop"),
-    path("shop-detail/",TemplateView.as_view(template_name="core/shop-detail.html"),name="shop"),
     path("chackout/",TemplateView.as_view(template_name="core/chackout.html"),name="checkout"),
-    path("contact/",TemplateView.as_view(template_name="core/contect.html"),name="contect"),
-    path('fruit/<id>/', fruit),
+    path("contact/",TemplateView.as_view(template_name="core/contact.html"),name="contect"),
+    path("testimonial/",TemplateView.as_view(template_name="core/testimonial.html"),name="testimonial"),
+    path('suggest/', suggest_products, name='suggest'),
 
 ]
 if settings.DEBUG:
