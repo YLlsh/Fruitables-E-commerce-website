@@ -31,7 +31,7 @@
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0))
 }
 
-*,*::before,*::after {
+*,*,*::after {
     box-sizing: border-box
 }
 
@@ -534,7 +534,7 @@ progress {
     color: #6c757d
 }
 
-.blockquote-footer::before {
+.blockquote-footer {
     content: "— "
 }
 
@@ -1487,7 +1487,10 @@ progress {
 
     .col-xl-4 {
         flex: 0 0 auto;
-        width: 33.3333333333%
+        width: 33.3333333333%;
+        margin-top: 60px;
+
+
     }
 
     .col-xl-5 {
@@ -3713,7 +3716,7 @@ textarea.form-control-lg {
     display: none
 }
 
-.dropstart .dropdown-toggle::before {
+.dropstart .dropdown-toggle {
     display: inline-block;
     margin-right: .255em;
     vertical-align: .255em;
@@ -3727,7 +3730,7 @@ textarea.form-control-lg {
     margin-left: 0
 }
 
-.dropstart .dropdown-toggle::before {
+.dropstart .dropdown-toggle {
     vertical-align: 0
 }
 
@@ -3871,7 +3874,7 @@ textarea.form-control-lg {
     margin-left: 0
 }
 
-.dropstart .dropdown-toggle-split::before {
+.dropstart .dropdown-toggle-split {
     margin-right: 0
 }
 
@@ -4687,7 +4690,7 @@ textarea.form-control-lg {
     padding-left: .5rem
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item {
     float: left;
     padding-right: .5rem;
     color: #6c757d;
@@ -4987,7 +4990,7 @@ textarea.form-control-lg {
     counter-reset: section
 }
 
-.list-group-numbered>li::before {
+.list-group-numbered>li {
     content: counters(section, ".") ". ";
     counter-increment: section
 }
@@ -5824,7 +5827,7 @@ textarea.form-control-lg {
     height: .4rem
 }
 
-.tooltip .tooltip-arrow::before {
+.tooltip .tooltip-arrow {
     position: absolute;
     content: "";
     border-color: rgba(0,0,0,0);
@@ -5839,7 +5842,7 @@ textarea.form-control-lg {
     bottom: 0
 }
 
-.bs-tooltip-top .tooltip-arrow::before,.bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
+.bs-tooltip-top .tooltip-arrow,.bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow {
     top: -1px;
     border-width: .4rem .4rem 0;
     border-top-color: #000
@@ -5855,7 +5858,7 @@ textarea.form-control-lg {
     height: .8rem
 }
 
-.bs-tooltip-end .tooltip-arrow::before,.bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
+.bs-tooltip-end .tooltip-arrow,.bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow {
     right: -1px;
     border-width: .4rem .4rem .4rem 0;
     border-right-color: #000
@@ -5869,7 +5872,7 @@ textarea.form-control-lg {
     top: 0
 }
 
-.bs-tooltip-bottom .tooltip-arrow::before,.bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
+.bs-tooltip-bottom .tooltip-arrow,.bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow {
     bottom: -1px;
     border-width: 0 .4rem .4rem;
     border-bottom-color: #000
@@ -5885,7 +5888,7 @@ textarea.form-control-lg {
     height: .8rem
 }
 
-.bs-tooltip-start .tooltip-arrow::before,.bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
+.bs-tooltip-start .tooltip-arrow,.bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow {
     left: -1px;
     border-width: .4rem 0 .4rem .4rem;
     border-left-color: #000
@@ -5936,7 +5939,7 @@ textarea.form-control-lg {
     height: .5rem
 }
 
-.popover .popover-arrow::before,.popover .popover-arrow::after {
+.popover .popover-arrow,.popover .popover-arrow::after {
     position: absolute;
     display: block;
     content: "";
@@ -5948,7 +5951,7 @@ textarea.form-control-lg {
     bottom: calc(-0.5rem - 1px)
 }
 
-.bs-popover-top>.popover-arrow::before,.bs-popover-auto[data-popper-placement^=top]>.popover-arrow::before {
+.bs-popover-top>.popover-arrow,.bs-popover-auto[data-popper-placement^=top]>.popover-arrow {
     bottom: 0;
     border-width: .5rem .5rem 0;
     border-top-color: rgba(0,0,0,.25)
@@ -5966,7 +5969,7 @@ textarea.form-control-lg {
     height: 1rem
 }
 
-.bs-popover-end>.popover-arrow::before,.bs-popover-auto[data-popper-placement^=right]>.popover-arrow::before {
+.bs-popover-end>.popover-arrow,.bs-popover-auto[data-popper-placement^=right]>.popover-arrow {
     left: 0;
     border-width: .5rem .5rem .5rem 0;
     border-right-color: rgba(0,0,0,.25)
@@ -5982,7 +5985,7 @@ textarea.form-control-lg {
     top: calc(-0.5rem - 1px)
 }
 
-.bs-popover-bottom>.popover-arrow::before,.bs-popover-auto[data-popper-placement^=bottom]>.popover-arrow::before {
+.bs-popover-bottom>.popover-arrow,.bs-popover-auto[data-popper-placement^=bottom]>.popover-arrow {
     top: 0;
     border-width: 0 .5rem .5rem .5rem;
     border-bottom-color: rgba(0,0,0,.25)
@@ -5994,7 +5997,7 @@ textarea.form-control-lg {
     border-bottom-color: #fff
 }
 
-.bs-popover-bottom .popover-header::before,.bs-popover-auto[data-popper-placement^=bottom] .popover-header::before {
+.bs-popover-bottom .popover-header,.bs-popover-auto[data-popper-placement^=bottom] .popover-header {
     position: absolute;
     top: 0;
     left: 50%;
@@ -6011,7 +6014,7 @@ textarea.form-control-lg {
     height: 1rem
 }
 
-.bs-popover-start>.popover-arrow::before,.bs-popover-auto[data-popper-placement^=left]>.popover-arrow::before {
+.bs-popover-start>.popover-arrow,.bs-popover-auto[data-popper-placement^=left]>.popover-arrow {
     right: 0;
     border-width: .5rem 0 .5rem .5rem;
     border-left-color: rgba(0,0,0,.25)
@@ -6450,7 +6453,7 @@ textarea.form-control-lg {
     width: 100%
 }
 
-.ratio::before {
+.ratio {
     display: block;
     padding-top: var(--bs-aspect-ratio);
     content: ""

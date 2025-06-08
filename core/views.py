@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 import products.models as product_model
 import cart.models as cart_model
 from django.core.paginator import Paginator
-
+import random
 from django.http import JsonResponse
 # def index(request):
     # return render (request, "core/index.html")
@@ -31,9 +31,42 @@ def index(request):
   
     fruits = product_model.Fruits.objects.all()
     Vegetables = product_model.Vegetables.objects.all()
+    Vegetables_bestSeller = product_model.Vegetables.objects.all()[:6]
 
     
-    return render(request, 'core/index.html', {'page_obj': vege_pag, 'fruits':fruits, 'Vegetables':Vegetables})
+    return render(request, 'core/index.html', {'page_obj': vege_pag, 'fruits':fruits, 'Vegetables':Vegetables, "Vegetables_bestSeller":Vegetables_bestSeller})
+
+
+def shop_random(request):
+    Random_obj = []
+
+    fruit_list = product_model.Fruits.objects.all()
+    for f in fruit_list:
+        Random_obj.append(f)
+
+    veg_list = product_model.Vegetables.objects.all()
+    for g in veg_list:
+        Random_obj.append(g)
+
+    obj = random.sample(Random_obj,  min(9, len(Random_obj)))
+    return render(request, "core/shop.html", {'Random_choices': obj})
+
+def product_random(request):
+    Random_obj = []
+
+    fruit_list = product_model.Fruits.objects.all()
+    for f in fruit_list:
+        f.category = "Fruits"
+        Random_obj.append(f)
+
+    veg_list = product_model.Vegetables.objects.all()
+    for g in veg_list:
+        g.category = "Vegetables"
+        Random_obj.append(g)
+    obj = random.sample(Random_obj,  min(1, len(Random_obj)))
+
+    return render(request, "core/shop-detail.html", {'Random_choicess': obj})
+
 
 
 def fruit_to_cart(request,id):
