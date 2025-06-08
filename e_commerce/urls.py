@@ -28,7 +28,7 @@ urlpatterns = [
     path("", include('core.urls')),
     path("shop-detail/", include('products.urls')),
     path("cart/",include('cart.urls')),
-    
+    path('result/<int:id>/',search_result, name="search_result"),
     path("contact/",TemplateView.as_view(template_name="core/contact.html"),name="contect"),
     path("testimonial/",TemplateView.as_view(template_name="core/testimonial.html"),name="testimonial"),
     path('suggest/', suggest_products, name='suggest'),

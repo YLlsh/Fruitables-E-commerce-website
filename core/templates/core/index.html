@@ -38,7 +38,7 @@
                             name="q" placeholder="Search">
 
                         <!-- its give as suggestions -->
-                        <ul id="suggestions" class="list-group position-absolute mt-2 w-75" style="z-index: 1000;"></ul>
+                            <ul id="suggestions" class="list-group position-absolute mt-2 w-75" style="z-index: 1000;"></ul>
                         <!-- end suggestions -->
 
                         <button type="submit"
@@ -55,7 +55,7 @@
                 <ul class="result_ul">
                     {% if results %}
                     {% for result in results %}
-                    <li> {{result.product_name}} - {{result.price}}</li>
+                    <a href="{% url 'search_result'  result.id %}"><li>  {{result.product_name}} - {{result.price}} </li></a>
                     {% endfor %}
                     {% elif query %}
                     <p> No result fund for {{query}}</p>

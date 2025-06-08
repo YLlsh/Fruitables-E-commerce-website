@@ -22,13 +22,19 @@ def index(request):
     query = request.GET.get('q')
     result = []
 
+    
     if query:
         result = product_model.Vegetables.objects.filter(product_name__icontains=query)
-        response =  render(request, "core/index.html",{'results': result, 'query': query})
+        if result:
+            response =  render(request, "core/index.html",{'results': result, 'query': query})
+        else:
+            result = product_model.Fruits.objects.filter(product_name__icontains=query)
+            response =  render(request, "core/index.html",{'results': result, 'query': query})
+
         return response
     # end search_bar view 
 
-  
+   
     fruits = product_model.Fruits.objects.all()
     Vegetables = product_model.Vegetables.objects.all()
     Vegetables_bestSeller = product_model.Vegetables.objects.all()[:6]
@@ -38,6 +44,7 @@ def index(request):
 
 
 def shop_random(request):
+    # for random product
     Random_obj = []
 
     fruit_list = product_model.Fruits.objects.all()
@@ -49,7 +56,36 @@ def shop_random(request):
         Random_obj.append(g)
 
     obj = random.sample(Random_obj,  min(9, len(Random_obj)))
-    return render(request, "core/shop.html", {'Random_choices': obj})
+    # end random product
+
+    # in range seach 
+    use_range = request.GET.get('rangeInput')
+    if use_range != None:
+        use_range = int(use_range)
+        all_product = []
+        in_range_product = []
+        
+        obj1 = product_model.Fruits.objects.all()
+        for f in obj1:
+            f.type = "fruit"
+            all_product.append(f)
+
+        obj2 = product_model.Vegetables.objects.all()
+        for g in obj2:
+            g.type = "veg"
+            all_product.append(g)
+
+        for r in all_product:
+            if r.price <= use_range:
+                in_range_product.append(r)
+    
+    # end in range serach
+        context = {
+            'final_result':in_range_product}
+        return render(request, "core/shop.html",context)
+
+    return render(request, "core/shop.html",{'Random_choices': obj} )
+
 
 def product_random(request):
     Random_obj = []
@@ -65,7 +101,10 @@ def product_random(request):
         Random_obj.append(g)
     obj = random.sample(Random_obj,  min(1, len(Random_obj)))
 
-    return render(request, "core/shop-detail.html", {'Random_choicess': obj})
+    obj1 = product_model.Fruits.objects.all()
+    obj2 =product_model.Vegetables.objects.all()
+
+    return render(request, "core/shop-detail.html", {'Random_choicess': obj, 'obj1':obj1, 'obj2':obj2})
 
 
 
@@ -99,6 +138,55 @@ def suggest_products(request):
     query = request.GET.get('q', '')
     if query:
         results = product_model.Vegetables.objects.filter(product_name__icontains=query)[:5]
-        data = [{'product_name': p.product_name, 'price': str(p.price)} for p in results]
+        if results:
+            data = [{'product_name': p.product_name, 'price': str(p.price)} for p in results]
+        else:
+            results = product_model.Fruits.objects.filter(product_name__icontains=query)[:5]
+            data = [{'product_name': p.product_name, 'price': str(p.price)} for p in results]
+
         return JsonResponse(data, safe=False)
     return JsonResponse([], safe=False)
+
+def search_result(request,id):
+     # search result to shop detail
+
+    all_product = []
+    
+    obj1 = product_model.Fruits.objects.all()
+    for f in obj1:
+        f.type = "fruit"
+        all_product.append(f)
+
+    obj2 = product_model.Fruits.objects.all()
+    for g in obj2:
+        g.type = "veg"
+        all_product.append(g)
+    id = id 
+
+    for result in all_product:
+        if id == result.id:
+            final_result = result
+    
+    return render(request, "core/shop-detail.html",{'final_result':final_result})
+
+def product_range(request):
+    range = request.GET.get('rangeInput')
+    
+    all_product = []
+    in_range_product = []
+    
+    obj1 = product_model.Fruits.objects.all()
+    for f in obj1:
+        f.type = "fruit"
+        all_product.append(f)
+
+    obj2 = product_model.Fruits.objects.all()
+    for g in obj2:
+        g.type = "veg"
+        all_product.append(g)
+
+    for r in all_product:
+        if range <= r.price:
+            in_range_product = r
+
+    return render(request, "core/shop.html",{'final_result':in_range_product})
