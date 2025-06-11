@@ -1,31 +1,42 @@
-
 /*** Spinner Start ***/
-#spinner {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .8s ease-out, visibility 0s linear .5s;
-    z-index: 99999;
- }
+#loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff; /* dark background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
- #spinner.show {
-     transition: opacity .8s ease-out, visibility 0s linear .0s;
-     visibility: visible;
-     opacity: 1;
- }
+    /* Spinner Animation */
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #00ff08;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 1s linear infinite;
+    }
 
- .back-to-top {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    display: flex;
-    width: 45px;
-    height: 45px;
-    align-items: center;
-    justify-content: center;
-    transition: 0.5s;
-    z-index: 99;
-}
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Hide body scroll while loading */
+    body.loading {
+      overflow: hidden;
+    }
 /*** Spinner End ***/
+
+html {
+  scroll-behavior: smooth;
+}
+
 
 
 /*** Button Start ***/
@@ -74,7 +85,8 @@
     color: var(--bs-white) !important;
 }
 
-/* search result start */.result {
+/* search result start */
+.result {
     margin-top: 20px;
     padding: 15px;
     background-color: #f9f9f9;
@@ -93,7 +105,7 @@
 
 .result_ul li {
     padding: 12px 18px;
-    margin:10px;
+    margin: 10px;
     width: max-content;
 
     background-color: #ffffff;
@@ -163,6 +175,7 @@
 .topbar .top-link a small:hover i {
     color: var(--bs-primary) !important;
 }
+
 /*** Topbar End ***/
 
 /*** Navbar Start ***/
@@ -223,6 +236,7 @@
 #searchModal .modal-content {
     background: rgba(255, 255, 255, .8);
 }
+
 /*** Navbar End ***/
 
 /*** Hero Header ***/
@@ -275,6 +289,7 @@
 }
 
 @media (min-width: 992px) {
+
     .hero-header,
     .page-header {
         margin-top: 152px !important;
@@ -282,11 +297,13 @@
 }
 
 @media (max-width: 992px) {
+
     .hero-header,
     .page-header {
         margin-top: 97px !important;
     }
 }
+
 /*** Hero Header end ***/
 
 
@@ -307,18 +324,19 @@
     transform: translate(-50%);
     transform: rotate(45deg);
     background: var(--bs-secondary);
-    
+
 }
+
 /*** featurs End ***/
 
 
 /*** service Start ***/
 .service .service-item .service-content {
     position: relative;
-    width: 250px; 
-    height: 130px; 
-    top: -50%; 
-    left: 50%; 
+    width: 250px;
+    height: 130px;
+    top: -50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -331,7 +349,7 @@
 }
 
 .fruite .tab-class .nav-item a.active span {
-    color: var(--bs-white) !important; 
+    color: var(--bs-white) !important;
 }
 
 .fruite .fruite-categorie .fruite-name {
@@ -345,6 +363,7 @@
 .fruite .fruite-categorie .fruite-name a:hover {
     color: var(--bs-secondary);
 }
+
 /* 
 .fruite .fruite-item {
     height: 100%;
@@ -356,30 +375,31 @@
 
 /* my chnages start*/
 
-   .fruite-item {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
+.fruite-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
-    .fruite-img {
-        height: 200px;
-        overflow: hidden;
-    }
+.fruite-img {
+    height: 200px;
+    overflow: hidden;
+}
 
-    .fruite-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
+.fruite-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
-    .fruite-item p {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+.fruite-item p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 /* my chnages end  */
 
 .fruite .fruite-item .fruite-img img {
@@ -389,6 +409,7 @@
 .fruite .fruite-item .fruite-img img:hover {
     transform: scale(1.3);
 }
+
 /*** Fruits End ***/
 
 
@@ -453,6 +474,7 @@
     background: var(--bs-secondary);
     color: var(--bs-white);
 }
+
 /*** vesitable End ***/
 
 
@@ -460,6 +482,7 @@
 .banner .banner-btn:hover {
     background: var(--bs-primary);
 }
+
 /*** Banner Section End ***/
 
 
@@ -484,6 +507,7 @@
 .counter h1 {
     margin-bottom: 0;
 }
+
 /*** Facts End ***/
 
 
@@ -519,6 +543,7 @@
     background: var(--bs-secondary);
     color: var(--bs-white);
 }
+
 /*** testimonial End ***/
 
 
@@ -529,7 +554,8 @@
 /* .li page-item{
     
 }
-   */.pagination {
+   */
+.pagination {
     display: flex;
     justify-content: center;
     list-style: none;
@@ -537,7 +563,8 @@
 }
 
 .page-item {
-    margin: 0 5px; /* spacing between buttons */
+    margin: 0 5px;
+    /* spacing between buttons */
 }
 
 .page-link {
@@ -547,7 +574,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     color: #fd7e14;
-;
+    ;
 }
 
 .page-link:hover {
@@ -568,12 +595,13 @@
     color: var(--bs-light);
     border: 1px solid var(--bs-secondary);
 } */
-  
+
 /* .pagination a:hover:not(.active) {background-color: var(--bs-primary)} */
 
 .nav.nav-tabs .nav-link.active {
     border-bottom: 2px solid var(--bs-secondary) !important;
 }
+
 /*** Single Page End ***/
 
 
@@ -591,10 +619,12 @@
 .footer .footer-item p.mb-4 {
     line-height: 35px;
 }
+
 /*** Footer End ***/
 
 fruite-img img {
-    height: 200px; /* or whatever fixed height you prefer */
+    height: 200px;
+    /* or whatever fixed height you prefer */
     object-fit: cover;
     width: 100%;
 }
@@ -625,7 +655,8 @@ fruite-img img {
     background-color: #f1f1f1;
 }
 
-.cart-table th, .cart-table td {
+.cart-table th,
+.cart-table td {
     padding: 16px;
     text-align: center;
     border-bottom: 1px solid #eee;
@@ -682,4 +713,84 @@ fruite-img img {
 .delete-btn:hover {
     background-color: #ffeaea;
 }
+
 /* end cart table css  */
+#cart_pay {
+    width: 366px;
+    height: 288px;
+}
+
+
+/* checkout table  */
+
+/* Make sure table borders and spacing are clean */
+.table {
+    margin-bottom: 1rem;
+    background-color: #fff;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.75rem;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    /* Light gray background */
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+    /* Row highlight on hover */
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-responsive {
+    margin-top: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+/* Total sum section */
+.total-sum {
+    width: 397px;
+    text-align: right;
+    padding: 0.75rem;
+    font-size: 1.2rem;
+    background-color: #f8f9fa;
+    border-top: 2px solid #dee2e6;
+    margin-top: 0.5rem;
+    border-radius: 0 0 8px 8px;
+}
+
+#suggestions {
+  max-height: 250px;         /* Limit height and allow scrolling */
+  overflow-y: auto;
+  background-color: #fff;     /* Ensure white background */
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;    /* Rounded corners (same as .rounded-md) */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for elevation */
+  padding: 0;
+  list-style: none;
+  z-index: 1000;              /* Ensure it's above other elements */
+}
+
+#suggestions li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#suggestions li:hover,
+#suggestions li.active {
+  background-color: #f0f0f0;  /* Highlight on hover */
+}

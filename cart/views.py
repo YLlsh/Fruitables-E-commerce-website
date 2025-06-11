@@ -7,6 +7,7 @@ import cart.models as cart_model
 # Create your views here.
 
 def cart(request):
+    # for total cart product 
     obj = cart_model.Cart.objects.all()
 
     total = cart_model.Cart.objects.aggregate(
@@ -14,8 +15,10 @@ def cart(request):
     
     t = total['total']
     return render(request,"core/cart.html",{'carts':obj,'total':t} )
+    # end for total cart product 
 
 def cart_modify_minos(request, m):
+    #for cart iteam quantity minos 
     obj = get_object_or_404(Cart, id=m)
     
     if obj.quantity > 1:
@@ -25,6 +28,8 @@ def cart_modify_minos(request, m):
     return redirect("cart")
 
 def cart_modify_plus(request, p):
+    #for cart iteam quantity plus 
+
     obj = get_object_or_404(Cart, id=p)
     obj.quantity += 1
     obj.save()
@@ -32,22 +37,20 @@ def cart_modify_plus(request, p):
     return redirect("cart")
 
 def cart_delete(request, d):
+    #for cart iteam delete  
 
     obj = get_object_or_404(Cart, id=d)
-
     obj.delete()
 
     return redirect("cart")
 
-  # Adjust import as per your project structure
-
 def proceed_checkout(request):
     cart_items = cart_model.Cart.objects.all()
 
-    # Clear old checkouts (optional, if needed per user/session)
+    # for remove old chechOut
     checkout_model.checkOut.objects.all().delete()
 
-    # Move cart items to checkout
+    # for move cart items to checkout
     for item in cart_items:
         checkout_model.checkOut.objects.create(
             product_name=item.product_name,

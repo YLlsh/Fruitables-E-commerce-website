@@ -3,23 +3,7 @@
 {% load static %}
 
 <!-- Modal Search Start -->
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content rounded-0">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex align-items-center">
-                <div class="input-group w-75 mx-auto d-flex">
-                    <input type="search" class="form-control p-3" placeholder="keywords"
-                        aria-describedby="search-icon-1">
-                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- Modal Search End -->
 
 
@@ -34,11 +18,11 @@
 
                 <div class="position-relative mx-auto">
                     <form method="get" action="{% url 'index' %}">
-                        <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text"
-                            name="q" placeholder="Search">
+                        <input id="indexInput" class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
+                            type="text" name="q" placeholder="Search">
 
                         <!-- its give as suggestions -->
-                            <ul id="suggestions" class="list-group position-absolute mt-2 w-75" style="z-index: 1000;"></ul>
+                        <ul id="suggestions" class="list-group position-absolute mt-2 w-75" style="z-index: 1000;"></ul>
                         <!-- end suggestions -->
 
                         <button type="submit"
@@ -49,13 +33,16 @@
                     </form>
 
                 </div>
+               
                 {% if results %}
 
 
                 <ul class="result_ul">
                     {% if results %}
                     {% for result in results %}
-                    <a href="{% url 'search_result'  result.id %}"><li>  {{result.product_name}} - {{result.price}} </li></a>
+                    <a href="{% url 'search_result'  result.id %}">
+                        <li> {{result.product_name}} - {{result.price}} </li>
+                    </a>
                     {% endfor %}
                     {% elif query %}
                     <p> No result fund for {{query}}</p>
@@ -263,7 +250,7 @@
                                                     <p>{{ fruit.description }}</p>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">{{ fruit.price }}</p>
-                                                        <a href="{% url 'fruit_to_cart' fruit.id %}"
+                                                        <a href="{% url 'fruit_to_cart' fruit.id request.path%}"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary">
                                                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
                                                             to cart
@@ -305,7 +292,7 @@
                                                     <p>{{ veg.description }}</p>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">{{ veg.price }}</p>
-                                                        <a href="{% url 'vegetable_to_cart' veg.id %}"
+                                                        <a href="{% url 'vegetable_to_cart' veg.id request.path %}"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary">
                                                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
                                                             to cart
@@ -383,7 +370,7 @@
 
 
 <!-- Vesitable Shop Start-->
-<div class="container-fluid vesitable py-5">
+<div  class="container-fluid vesitable py-5">
     <div class="container py-5">
         <h1 class="mb-0">Fresh Organic Vegetables</h1>
         <div class="row g-4 justify-content-center">
@@ -400,7 +387,7 @@
                         <p>{{ veg.description }}</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
                             <p class="text-dark fs-5 fw-bold mb-0">₹{{ veg.price }}</p>
-                            <a href="{% url 'vegetable_to_cart' veg.id %}"
+                            <a href="{% url 'vegetable_to_cart' veg.id request.path %}"
                                 class="btn border border-secondary rounded-pill px-3 text-primary">
                                 <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                             </a>
@@ -412,24 +399,24 @@
         </div>
 
         <!-- Pagination Controls -->
-        <div class="pagination mt-5 d-flex justify-content-center">
+        <div id="myinpu" class="pagination mt-5 d-flex justify-content-center">
             <nav>
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
-                    <li class="li page-item"><a class="page-link"
-                            href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                    <li class="li page-item"><a  onclick="scrollToInput()" class="page-link"
+                            href="?page={{ page_obj.previous_page_number }} ">Previous</a></li>
                     {% endif %}
 
                     {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
                     <li class=" li page-item active"><span class="page-link">{{ num }}</span></li>
                     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li
-                        class="li page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        class="li page-item"><a  onclick="scrollToInput()" class="page-link" href="?page={{ num }}">{{ num }}</a></li>
                         {% endif %}
                         {% endfor %}
 
                         {% if page_obj.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <li class="page-item"><a  onclick="scrollToInput()" class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
                         </li>
                         {% endif %}
                 </ul>
@@ -437,17 +424,11 @@
         </div>
     </div>
 </div>
-
 <script>
-    // Check if the URL contains a "page=" parameter
-    window.addEventListener("load", function () {
-        if (window.location.search.includes("page=")) {
-            const pagination = document.querySelector(".pagination");
-            if (pagination) {
-                pagination.scrollIntoView({ behavior: "smooth", block: "center" });
-            }
-        }
-    });
+  function scrollToInput() {
+    const inputElement = document.getElementById("myinpu");
+    inputElement.scrollIntoView({ behavior: "smooth" });
+  }
 </script>
 
 

@@ -9,6 +9,5 @@ urlpatterns = [
     path("minos/<int:m>/", cart_modify_minos,  name="cart_modify_minos"),
     path("delete/<int:d>/", cart_delete, name="cart_delete"),
     path("proceed_checkout/", proceed_checkout, name="proceed_checkout"),
-    path("checkout/", TemplateView.as_view(template_name='core/chackout.html'), name="checkout"),
 
 ]

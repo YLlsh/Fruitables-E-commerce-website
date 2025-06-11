@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-6"></div>
                     <div class="col-xl-3">
-                        <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+                        <!-- <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
                             <label for="fruits">Default Sorting:</label>
                             <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3"
                                 form="fruitform">
@@ -61,14 +61,14 @@
                                 <option value="opel">Organic</option>
                                 <option value="audi">Fantastic</option>
                             </select>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3">
                         <div class="row g-4">
                             <div class="col-lg-12">
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <h4>Categories</h4>
                                     <ul class="list-unstyled fruite-categorie">
                                         <li>
@@ -102,7 +102,7 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <h4>Additional</h4>
                                     <div class="mb-2">
                                         <input type="radio" class="me-2" id="Categories-1" name="Categories-1"
@@ -144,7 +144,7 @@
                                             value="Beverages">
                                         <label for="Categories-5"> Expired</label>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-lg-12">
                                 <h4 class="mb-3">Featured products</h4>
@@ -154,7 +154,7 @@
                                             alt="">
                                     </div>
                                     <div>
-                                        <h6 class="mb-2">Big Banana</h6>
+                                        <h6 class="mb-2">Apple</h6>
                                         <div class="d-flex mb-2">
                                             <i class="fa fa-star text-secondary"></i>
                                             <i class="fa fa-star text-secondary"></i>
@@ -163,8 +163,8 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                            <h5 class="fw-bold me-2">₹200</h5>
+                                            <h5 class="text-danger text-decoration-line-through">₹300</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                                             alt="">
                                     </div>
                                     <div>
-                                        <h6 class="mb-2">Big Banana</h6>
+                                        <h6 class="mb-2">Strawberry</h6>
                                         <div class="d-flex mb-2">
                                             <i class="fa fa-star text-secondary"></i>
                                             <i class="fa fa-star text-secondary"></i>
@@ -183,18 +183,18 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                            <h5 class="fw-bold me-2">₹160</h5>
+                                            <h5 class="text-danger text-decoration-line-through">₹250</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="{%static 'core/images/featur-3.jpg' %}' %}' %}"
+                                        <img src="{%static 'core/images/featur-3.jpg' %}"
                                             class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
-                                        <h6 class="mb-2">Big Banana</h6>
+                                        <h6 class="mb-2">broccoli</h6>
                                         <div class="d-flex mb-2">
                                             <i class="fa fa-star text-secondary"></i>
                                             <i class="fa fa-star text-secondary"></i>
@@ -203,16 +203,12 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                            <h5 class="fw-bold me-2">₹120</h5>
+                                            <h5 class="text-danger text-decoration-line-through">₹200</h5>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-center my-4">
-                                    <a href="#"
-                                        class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew
-                                        More</a>
-                                </div>
+                               
                             </div>
                             <div class="col-lg-12">
                                 <div class="position-relative">
@@ -228,6 +224,8 @@
                     </div>
                     <div class="col-lg-9">
                         <div class="row g-4 justify-content-center">
+
+                            
 
                             {% if final_result %}
                             {% for in_range in final_result %}
@@ -254,7 +252,8 @@
 
                             {% else %}
 
-                            {% for choise in Random_choices %}
+
+                            {% for choise in shop_Random_choices %}
                             <div class="col-md-6 col-lg-6 col-xl-4">
                                 <div class="rounded position-relative fruite-item">
                                     <div class="fruite-img">
@@ -267,9 +266,19 @@
                                         <p>{{choise.description}}</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0">₹{{choise.price}} kg</p>
-                                            <a href="{% url 'fruit_to_cart' choise.id }"
+
+                                            {% if choise.type == "fruit" %}
+                                            <a href="{% url 'fruit_to_cart' choise.id request.path %}"
                                                 class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                            
+                                            {% elif choise.type == "veg" %}
+
+                                            <a href="{% url 'vegetable_to_cart' choise.id request.path %}"
+                                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

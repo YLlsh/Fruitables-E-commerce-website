@@ -9,12 +9,12 @@ from django.http import JsonResponse
 
 
 def index(request):
-      # Paginator VIEW
+    # Paginator VIEW
     vegetable_objects = product_model.Vegetables.objects.all()
     paginator = Paginator(vegetable_objects, 4)  # 4 items per page
     page_number = request.GET.get('page')
     vege_pag = paginator.get_page(page_number)
-    # END Paginator
+    # end Paginator
 
 
 
@@ -49,10 +49,12 @@ def shop_random(request):
 
     fruit_list = product_model.Fruits.objects.all()
     for f in fruit_list:
+        f.type = "fruit"
         Random_obj.append(f)
 
     veg_list = product_model.Vegetables.objects.all()
     for g in veg_list:
+        g.type = "veg"
         Random_obj.append(g)
 
     obj = random.sample(Random_obj,  min(9, len(Random_obj)))
@@ -84,7 +86,7 @@ def shop_random(request):
             'final_result':in_range_product}
         return render(request, "core/shop.html",context)
 
-    return render(request, "core/shop.html",{'Random_choices': obj} )
+    return render(request, "core/shop.html",{'shop_Random_choices': obj} )
 
 
 def product_random(request):
@@ -104,11 +106,11 @@ def product_random(request):
     obj1 = product_model.Fruits.objects.all()
     obj2 =product_model.Vegetables.objects.all()
 
-    return render(request, "core/shop-detail.html", {'Random_choicess': obj, 'obj1':obj1, 'obj2':obj2})
+    return render(request, "core/product_detail.html", {'Random_choicess': obj, 'obj1':obj1, 'obj2':obj2})
 
 
 
-def fruit_to_cart(request,id):
+def fruit_to_cart(request,id, path):
     id = id
 
     obj1 = product_model.Fruits.objects.get(id=id)
@@ -117,21 +119,24 @@ def fruit_to_cart(request,id):
         product_name = obj1.product_name,
         price = obj1.price,
         )
+    if path == 'shop':
+        return redirect("/shop/")
     
     return redirect("/")
 
-def vegetable_to_cart(request,id):
+def vegetable_to_cart(request, id, path):
     id = id
 
-    obj1 = product_model.Fruits.objects.get(id=id)
+    obj1 = product_model.Vegetables.objects.get(id=id)
 
     cart_model.Cart.objects.create(
         product_name = obj1.product_name,
         price = obj1.price,
         )
+    if path == 'shop':
+        return redirect("/shop/")
     
     return redirect("/")
-
 
 
 def suggest_products(request):
@@ -167,7 +172,7 @@ def search_result(request,id):
         if id == result.id:
             final_result = result
     
-    return render(request, "core/shop-detail.html",{'final_result':final_result})
+    return render(request, "core/product_detail.html",{'final_result':final_result})
 
 def product_range(request):
     range = request.GET.get('rangeInput')
