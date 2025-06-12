@@ -18,8 +18,9 @@
 
                 <div class="position-relative mx-auto">
                     <form method="get" action="{% url 'index' %}">
-                        <input id="indexInput" class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
-                            type="text" name="q" placeholder="Search">
+                        <input id="indexInput"
+                            class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text"
+                            name="q" placeholder="Search">
 
                         <!-- its give as suggestions -->
                         <ul id="suggestions" class="list-group position-absolute mt-2 w-75" style="z-index: 1000;"></ul>
@@ -33,16 +34,18 @@
                     </form>
 
                 </div>
-               
+
                 {% if results %}
 
 
                 <ul class="result_ul">
                     {% if results %}
                     {% for result in results %}
-                    <a href="{% url 'search_result'  result.id %}">
+
+                    <a href="{% url 'search_result' result.id  result.type %}">
                         <li> {{result.product_name}} - {{result.price}} </li>
                     </a>
+
                     {% endfor %}
                     {% elif query %}
                     <p> No result fund for {{query}}</p>
@@ -53,13 +56,6 @@
                 {% endif %}
             </div>
 
-            <script>
-                // This will run after the page loads
-                if (window.location.search.length > 0) {
-                    const url = window.location.origin + window.location.pathname;
-                    window.history.replaceState({}, document.title, url);
-                }
-            </script>
 
 
             <!-- script for suggestions -->
@@ -370,7 +366,7 @@
 
 
 <!-- Vesitable Shop Start-->
-<div  class="container-fluid vesitable py-5">
+<div id="go" class="container-fluid vesitable py-5">
     <div class="container py-5">
         <h1 class="mb-0">Fresh Organic Vegetables</h1>
         <div class="row g-4 justify-content-center">
@@ -403,20 +399,21 @@
             <nav>
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
-                    <li class="li page-item"><a  onclick="scrollToInput()" class="page-link"
-                            href="?page={{ page_obj.previous_page_number }} ">Previous</a></li>
+                    <li class="li page-item"><a onclick="scrollToInput()" class="page-link"
+                            href="?page={{ page_obj.previous_page_number }}#go">Previous</a></li>
                     {% endif %}
 
                     {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
                     <li class=" li page-item active"><span class="page-link">{{ num }}</span></li>
                     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li
-                        class="li page-item"><a  onclick="scrollToInput()" class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        class="li page-item"><a onclick="scrollToInput()" class="page-link" href="?page={{ num }}#go">{{ num }}</a></li>
                         {% endif %}
                         {% endfor %}
 
                         {% if page_obj.has_next %}
-                        <li class="page-item"><a  onclick="scrollToInput()" class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <li class="page-item"><a onclick="scrollToInput()" class="page-link"
+                                href="?page={{ page_obj.next_page_number }}#go">Next</a>
                         </li>
                         {% endif %}
                 </ul>
@@ -425,10 +422,10 @@
     </div>
 </div>
 <script>
-  function scrollToInput() {
-    const inputElement = document.getElementById("myinpu");
-    inputElement.scrollIntoView({ behavior: "smooth" });
-  }
+    function scrollToInput() {
+        const inputElement = document.getElementById("myinpu");
+        inputElement.scrollIntoView({ behavior: "smooth" });
+    }
 </script>
 
 

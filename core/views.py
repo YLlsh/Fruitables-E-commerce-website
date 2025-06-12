@@ -26,9 +26,13 @@ def index(request):
     if query:
         result = product_model.Vegetables.objects.filter(product_name__icontains=query)
         if result:
+            for r in result:
+                r.type = "veg"
             response =  render(request, "core/index.html",{'results': result, 'query': query})
         else:
             result = product_model.Fruits.objects.filter(product_name__icontains=query)
+            for f in result:
+                f.type = "fruit"
             response =  render(request, "core/index.html",{'results': result, 'query': query})
 
         return response
@@ -112,30 +116,32 @@ def product_random(request):
 
 def fruit_to_cart(request,id, path):
     id = id
-
     obj1 = product_model.Fruits.objects.get(id=id)
 
     cart_model.Cart.objects.create(
         product_name = obj1.product_name,
         price = obj1.price,
         )
-    if path == 'shop':
+    if path == '/shop/':
         return redirect("/shop/")
-    
+    elif path == '/product_detail/':
+        return redirect("/product_detail/")
+
     return redirect("/")
 
 def vegetable_to_cart(request, id, path):
     id = id
-
     obj1 = product_model.Vegetables.objects.get(id=id)
 
     cart_model.Cart.objects.create(
         product_name = obj1.product_name,
         price = obj1.price,
         )
-    if path == 'shop':
-        return redirect("/shop/")
-    
+    if path == '/shop/':
+         return redirect("/shop/")
+    elif path == '/product_detail/':
+        return redirect("/product_detail/")
+
     return redirect("/")
 
 
@@ -152,7 +158,7 @@ def suggest_products(request):
         return JsonResponse(data, safe=False)
     return JsonResponse([], safe=False)
 
-def search_result(request,id):
+def search_result(request,id, type):
      # search result to shop detail
 
     all_product = []
@@ -162,14 +168,14 @@ def search_result(request,id):
         f.type = "fruit"
         all_product.append(f)
 
-    obj2 = product_model.Fruits.objects.all()
+    obj2 = product_model.Vegetables.objects.all()
     for g in obj2:
         g.type = "veg"
         all_product.append(g)
     id = id 
 
     for result in all_product:
-        if id == result.id:
+        if id == result.id and type == result.type:
             final_result = result
     
     return render(request, "core/product_detail.html",{'final_result':final_result})

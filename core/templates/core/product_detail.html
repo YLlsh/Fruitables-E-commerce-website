@@ -45,7 +45,7 @@
                 <div class="row g-4">
 
                     <div class="col-lg-6">
-                        <div class="border rounded">
+                        <div id="p_image" class="border rounded">
                             <a href="#">
                                 <img src="{{ final_result.image.url }}" class="img-fluid rounded" alt="Image">
                             </a>
@@ -64,20 +64,27 @@
                         </div>
                         <p>{{ final_result.description}} </p>
 
-                        <a href="{% url 'fruit_to_cart' final_result.id %}"
+                        {% if final_result.type == "fruit" %}
+                        <a href="{% url 'fruit_to_cart' final_result.id request.path %}"
+                            class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+
+                        {% elif final_result.type == "veg" %}
+                        <a href="{% url 'fruit_to_cart' final_result.id request.path %}"
                             class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                 class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                     </div>
-                   
+                        {% endif %}
 
                 </div>
+        
                 {% else %}
 
                 <div class="row g-4">
 
                     {% for choice in Random_choicess%}
                     <div class="col-lg-6">
-                        <div class="border rounded">
+                        <div id="p_image" class="border rounded">
                             <a href="#">
                                 <img src="{{ choice.image.url }}" class="img-fluid rounded" alt="Image">
                             </a>
@@ -96,11 +103,18 @@
                         </div>
                         <p>{{ choice.description}} </p>
 
-                        <a href="{% url 'fruit_to_cart' choice.id %}"
+
+                        {% if choice.category == "Fruits" %}
+                        <a href="{% url 'fruit_to_cart' choice.id request.path %}"
                             class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                 class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                        {% elif choice.category == "Vegetables" %}
+                         <a href="{% url 'vegetable_to_cart' choice.id request.path %}"
+                            class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                        {% endif %}
                     </div>
-                   
+
                     {% endfor %}
 
                 </div>
@@ -218,8 +232,8 @@
                                 </div>
                             </div>
                         </div>
-                       
-                    
+
+
                     </div>
                     <div class="col-lg-12">
                         <div class="position-relative">
@@ -233,6 +247,7 @@
                 </div>
             </div>
         </div>
+        {% if not final_result %}
         <h1 class="fw-bold mb-0">Related products</h1>
         <div class="tab-content">
             <!-- Fruits Tab -->
@@ -240,13 +255,16 @@
                 <div class="p-4 bg-light rounded">
                     {% for choice in Random_choicess %}
                     {% if choice.category == 'Fruits' %}
+
                     <h4>Fresh Fruits</h4>
                     <p>Explore a variety of fresh fruits including apples, bananas, oranges, and more.</p>
+
                     {% elif choice.category == 'Vegetables' %}
 
                     <h4>Organic Vegetables</h4>
                     <p>Check out our selection of fresh organic vegetables such as carrots, spinach, and
                         broccoli.</p>
+
                     {% endif %}
 
                     {% endfor %}
@@ -269,11 +287,14 @@
                                             <p>{{ obj.description }}</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">{{ obj.price }}</p>
-                                                <a href="{% url 'fruit_to_cart' obj.id %}"
+
+                                                <a href="{% url 'fruit_to_cart' obj.id request.path %}"
                                                     class="btn border border-secondary rounded-pill px-3 text-primary">
                                                     <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
                                                     to cart
                                                 </a>
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -293,7 +314,7 @@
                                             <p>{{ obj.description }}</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">{{ obj.price }}</p>
-                                                <a href="{% url 'fruit_to_cart' obj.id %}"
+                                                <a href="{% url 'fruit_to_cart' obj.id request.path %}"
                                                     class="btn border border-secondary rounded-pill px-3 text-primary">
                                                     <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
                                                     to cart
@@ -313,6 +334,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 </div>
 </div>
