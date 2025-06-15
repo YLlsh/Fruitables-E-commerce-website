@@ -22,10 +22,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from cart.views import *
+from account.views import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('core.urls')),
+    path("account/",include('account.urls')),
     path("product_detail/", include('products.urls')),
     path("cart/",include('cart.urls')),
     path('result/<int:id>/<str:type>/',search_result, name="search_result"),

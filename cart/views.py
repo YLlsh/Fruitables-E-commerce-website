@@ -8,10 +8,10 @@ import cart.models as cart_model
 
 def cart(request):
     # for total cart product 
-    obj = cart_model.Cart.objects.all()
+    obj = cart_model.Cart.objects.filter(user = request.user)
 
     total = cart_model.Cart.objects.aggregate(
-        total=Sum('total',filter=Q(total__isnull=False)))
+        total=Sum('total',filter=Q(total__isnull=False) and Q(user = request.user)))
     
     t = total['total']
     return render(request,"core/cart.html",{'carts':obj,'total':t} )
@@ -45,7 +45,7 @@ def cart_delete(request, d):
     return redirect("cart")
 
 def proceed_checkout(request):
-    cart_items = cart_model.Cart.objects.all()
+    cart_items = cart_model.Cart.objects.filter(user = request.user)
 
     # for remove old chechOut
     checkout_model.checkOut.objects.all().delete()

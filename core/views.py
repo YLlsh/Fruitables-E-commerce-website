@@ -4,10 +4,10 @@ import cart.models as cart_model
 from django.core.paginator import Paginator
 import random
 from django.http import JsonResponse
-# def index(request):
-    # return render (request, "core/index.html")
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url="/account/sign_in/")
 def index(request):
     # Paginator VIEW
     vegetable_objects = product_model.Vegetables.objects.all()
@@ -41,12 +41,12 @@ def index(request):
    
     fruits = product_model.Fruits.objects.all()
     Vegetables = product_model.Vegetables.objects.all()
-    Vegetables_bestSeller = product_model.Vegetables.objects.all()[:6]
+    Vegetables_bestSeller = product_model.Vegetables.objects.all()[2:5]
 
     
     return render(request, 'core/index.html', {'page_obj': vege_pag, 'fruits':fruits, 'Vegetables':Vegetables, "Vegetables_bestSeller":Vegetables_bestSeller})
 
-
+@login_required(login_url="/account/sign_in/")
 def shop_random(request):
     # for random product
     Random_obj = []
@@ -92,7 +92,7 @@ def shop_random(request):
 
     return render(request, "core/shop.html",{'shop_Random_choices': obj} )
 
-
+@login_required(login_url="/account/sign_in/")
 def product_random(request):
     Random_obj = []
 
@@ -113,12 +113,13 @@ def product_random(request):
     return render(request, "core/product_detail.html", {'Random_choicess': obj, 'obj1':obj1, 'obj2':obj2})
 
 
-
+@login_required(login_url="/account/sign_in/")
 def fruit_to_cart(request,id, path):
     id = id
     obj1 = product_model.Fruits.objects.get(id=id)
 
     cart_model.Cart.objects.create(
+        user = request.user,
         product_name = obj1.product_name,
         price = obj1.price,
         )
@@ -128,12 +129,13 @@ def fruit_to_cart(request,id, path):
         return redirect("/product_detail/")
 
     return redirect("/")
-
+@login_required(login_url="/account/sign_in/")
 def vegetable_to_cart(request, id, path):
     id = id
     obj1 = product_model.Vegetables.objects.get(id=id)
 
     cart_model.Cart.objects.create(
+        user = request.user,
         product_name = obj1.product_name,
         price = obj1.price,
         )
@@ -144,7 +146,7 @@ def vegetable_to_cart(request, id, path):
 
     return redirect("/")
 
-
+@login_required(login_url="/account/sign_in/")
 def suggest_products(request):
     query = request.GET.get('q', '')
     if query:
@@ -157,7 +159,7 @@ def suggest_products(request):
 
         return JsonResponse(data, safe=False)
     return JsonResponse([], safe=False)
-
+@login_required(login_url="/account/sign_in/")
 def search_result(request,id, type):
      # search result to shop detail
 
@@ -180,6 +182,7 @@ def search_result(request,id, type):
     
     return render(request, "core/product_detail.html",{'final_result':final_result})
 
+@login_required(login_url="/account/sign_in/")
 def product_range(request):
     range = request.GET.get('rangeInput')
     
