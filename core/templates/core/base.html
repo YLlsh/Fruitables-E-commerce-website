@@ -25,7 +25,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{% static 'core/style2.css' %}" rel="stylesheet">
-      <style>
+    <style>
         .user-dropdown {
             position: absolute;
             top: 100%;
@@ -66,6 +66,52 @@
         }
 
         .user-dropdown a:hover {
+            background-color: #0056b3;
+        }
+
+
+        /* for show oders */
+
+        .user-oders {
+            position: absolute;
+            top: 100%;
+            /* Appear just below the icon */
+            left: 0;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 220px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .user-oders p {
+            margin: 0 0 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .user-oders p strong {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .user-oders a {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 12px;
+            font-size: 14px;
+            color: white;
+            background-color: #81c408;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .user-oders a:hover {
             background-color: #0056b3;
         }
     </style>
@@ -129,17 +175,24 @@
                         {% endif %}
 
                         <!-- Shopping Bag with Badge -->
-                        <a href="#" class="position-relative d-inline-block">
-                            <i class="fa fa-shopping-bag fa-2x text-dark"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle bg-secondary text-dark rounded-circle d-flex align-items-center justify-content-center"
-                                style="width: 20px; height: 20px; font-size: 0.75rem;">
-                                3
-                            </span>
-                        </a>
+                        <div style="position: relative; display: inline-block;">
+
+                            <a href="#" id="showOders" class="position-relative d-inline-block">
+                                <i class="fa fa-shopping-bag fa-2x text-dark"></i>
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle bg-secondary text-dark rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 20px; height: 20px; font-size: 0.75rem;">
+                                    3
+                                </span>
+                            </a>
+                            <!-- Hidden orders -->
+                            <div id="userOrders" style="display: none;" class="user-oders">
+                                <p><strong>After add payment API</strong> Make changes in backend to use this for orders</p>
+                            </div>
+                        </div>
 
                         <!-- User Icon -->
-                           <div style="position: relative; display: inline-block;">
+                        <div style="position: relative; display: inline-block;">
                             <!-- Icon Button -->
                             <a href="#" id="showButton" class="d-inline-block">
                                 <i class="fas fa-user fa-2x text-dark"></i>
@@ -160,7 +213,27 @@
     </div>
     <!-- Navbar End -->
 
-<script>
+
+    <script>
+        const showOders = document.getElementById("showOders");
+        const userOrders = document.getElementById("userOrders");
+
+        // Toggle visibility on click
+        showOders.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent anchor from jumping
+            userOrders.style.display = (userOrders.style.display === "none" || userOrders.style.display === "") ? "block" : "none";
+        });
+
+        // Hide when clicking outside
+        document.addEventListener("click", function (e) {
+            if (!showOders.contains(e.target) && !userOrders.contains(e.target)) {
+                userOrders.style.display = "none";
+            }
+        });
+    </script>
+
+
+    <script>
         const showButton = document.getElementById("showButton");
         const userDetails = document.getElementById("userDetails");
 
