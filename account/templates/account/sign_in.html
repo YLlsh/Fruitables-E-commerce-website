@@ -14,36 +14,51 @@
 <body>
     <div class="wrapper">
         <form method="post">
-            {% csrf_token %}
-            <h1>Sign In</h1>
+    {% csrf_token %}
+    <h1>Sign In</h1>
 
-            <div>
-                {% if messages %}
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="message">{{message}}</div>
+        {% endfor %}
+        {% endif %}
+        
+   {% if not enter_otp and not request.GET.otp == "worng_otp" %}
+        <div class="input-box">
+            <input type="text" value="{{username}}" name="username" placeholder="username" required>
+            <i class='bx bx-user'></i>
+        </div>
 
-                {% for message in messages %}
-               <div class="message">{{message}}</div>
-                {% endfor %}
-                {% endif %}
-                <div class="input-box">
-                    <input type="text" name="username" placeholder="username" required>
-                    <i class='bx bx-user'></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" name="password" placeholder="password" required>
-                    <i class='bx bx-lock-alt'></i> <!-- common lock icon -->
-                </div>
+        <div class="input-box">
+            <input type="password" value="{{password}}" name="password" placeholder="password" required>
+            <i class='bx bx-lock-alt'></i>
+        </div>
 
-                <!-- <div class="remember-forgot">
-                    <label><input type="checkbox">Remember Me</label>
-                    <a href="#">Forgot Password?</a>
-                </div> -->
+        
+     
 
-                <button type="submit" class="btn">Sign In</button>
+        <button type="submit" class="btn">Sign In</button>
+       
 
-                <div class="register-link">
-                    <p>Don't have an account? <a href="/account/sign_up/">Sign Up</a></p>
-                </div>
-        </form>
+        <div class="register-link">
+            <p>Don't have an account? <a href="/account/sign_up/">Sign Up</a></p>
+        </div> 
+        {% endif %}
+
+</form>
+{% if enter_otp or request.GET.otp == "worng_otp" %}
+<form method="post" action="{% url 'verify_otp' %}">
+    {% csrf_token %}
+     <!-- ✅ New OTP Field Added -->
+        <div class="input-box">
+            <input type="text" name="otp" placeholder="Verify OTP" required>
+            <i class='bx bx-shield'></i>
+        </div>
+
+        <button type="submit" class="btn">Sign In</button>
+</form>
+{% endif %}
     </div>
     </div>
 </body>

@@ -103,6 +103,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# email confrigration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'            # Gmail SMTP server
+EMAIL_PORT = 587                         # TLS port
+EMAIL_USE_TLS = True 
+EMAIL_HOST_USER  =  'yashmm144@gmail.com' 
+EMAIL_HOST_PASSWORD = 'ubjlywgjmxpcqzxf'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

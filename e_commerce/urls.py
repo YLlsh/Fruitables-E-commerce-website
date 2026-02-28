@@ -33,6 +33,7 @@ urlpatterns = [
     path('search_result/<int:id>/',search_result, name="search_result"),
     path("contact/",TemplateView.as_view(template_name="core/contact.html"),name="contect"),
     path("testimonial/",TemplateView.as_view(template_name="core/testimonial.html"),name="testimonial"),
+    path('verify_otp/', verify_otp, name='verify_otp'),
     path('suggest/', suggest_products, name='suggest'),
 
 ]

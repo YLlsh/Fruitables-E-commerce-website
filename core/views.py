@@ -26,6 +26,9 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="/account/sign_in/")
 def index(request):
+    # remove otp from session
+    request.session.pop('otp',None)
+
     # Paginator VIEW
     vegetable_objects = product_model.Product.objects.filter(category=1)
     paginator = Paginator(vegetable_objects, 4)  # 4 items per page
