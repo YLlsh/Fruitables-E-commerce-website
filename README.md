@@ -110,3 +110,8 @@ python manage.py runserver
 ```
 http://127.0.0.1:8000
 ```
+## ScreeShot
+### Homa_page
+
+(More screeenshot on Screenshots folder)
+![Home_page](Screenshots/Home_page.png)
