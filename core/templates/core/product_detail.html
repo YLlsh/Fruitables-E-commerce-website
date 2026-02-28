@@ -34,7 +34,22 @@
             </ol>
         </div> -->
 <!-- Single Page Header End -->
-\
+<style>
+    #p_image {
+    width: 475px;        /* same width for all */
+    height: 300px;       /* same height for all */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#p_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* ⭐ important */
+}
+</style>
 
 <!-- Single Product Start -->
 <div class="container-fluid py-5 mt-5">
@@ -64,36 +79,34 @@
                         </div>
                         <p>{{ final_result.description}} </p>
 
-                        {% if final_result.type == "fruit" %}
-                        <a href="{% url 'fruit_to_cart' final_result.id request.path %}"
+                        
+                        <a href="{% url 'add_to_cark' final_result.id %}"
                             class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                 class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
 
-                        {% elif final_result.type == "veg" %}
-                        <a href="{% url 'fruit_to_cart' final_result.id request.path %}"
-                            class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                      
                     </div>
-                        {% endif %}
+                        
 
                 </div>
+                {% endif %}
+                
         
-                {% else %}
+                {% if Random_choicess %}
 
                 <div class="row g-4">
 
-                    {% for choice in Random_choicess%}
                     <div class="col-lg-6">
                         <div id="p_image" class="border rounded">
                             <a href="#">
-                                <img src="{{ choice.image.url }}" class="img-fluid rounded" alt="Image">
+                                <img src="{{ Random_choicess.image.url }}" class="img-fluid rounded" alt="Image">
                             </a>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <h4 class="fw-bold mb-3">{{ choice.product_name }}</h4>
-                        <p class="mb-3">Category: {{choice.category}}</p>
-                        <h5 class="fw-bold mb-3">₹{{choice.price}}</h5>
+                        <h4 class="fw-bold mb-3">{{ Random_choicess.product_name }}</h4>
+                        <p class="mb-3">Category: {{Random_choicess.category}}</p>
+                        <h5 class="fw-bold mb-3">₹{{Random_choicess.price}}</h5>
                         <div class="d-flex mb-4">
                             <i class="fa fa-star text-secondary"></i>
                             <i class="fa fa-star text-secondary"></i>
@@ -101,25 +114,20 @@
                             <i class="fa fa-star text-secondary"></i>
                             <i class="fa fa-star"></i>
                         </div>
-                        <p>{{ choice.description}} </p>
+                        <p>{{ Random_choicess.description}} </p>
 
 
-                        {% if choice.category == "Fruits" %}
-                        <a href="{% url 'fruit_to_cart' choice.id request.path %}"
+                        <a href="{% url 'add_to_cark' Random_choicess.id %}"
                             class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                 class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        {% elif choice.category == "Vegetables" %}
-                         <a href="{% url 'vegetable_to_cart' choice.id request.path %}"
-                            class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        {% endif %}
+                       
                     </div>
-
-                    {% endfor %}
-
                 </div>
                 {% endif %}
+              
             </div>
+
+            
             <div class="col-lg-4 col-xl-3">
                 <div class="row g-4 fruite">
                     <div class="col-lg-12">
@@ -247,19 +255,30 @@
                 </div>
             </div>
         </div>
-        {% if not final_result %}
+        
+
+
+
+        <!-- ok -->
+
+
+        
+    
+
+    {% if not final_result %}
         <h1 class="fw-bold mb-0">Related products</h1>
         <div class="tab-content">
             <!-- Fruits Tab -->
             <div class="tab-pane fade show active" id="tab-3">
                 <div class="p-4 bg-light rounded">
-                    {% for choice in Random_choicess %}
-                    {% if choice.category == 'Fruits' %}
+                    
+                    
+                    {% if Random_choicess.category.name == "fruits" %}
 
                     <h4>Fresh Fruits</h4>
                     <p>Explore a variety of fresh fruits including apples, bananas, oranges, and more.</p>
 
-                    {% elif choice.category == 'Vegetables' %}
+                    {% elif Random_choicess.category.name == "vegetables" %}
 
                     <h4>Organic Vegetables</h4>
                     <p>Check out our selection of fresh organic vegetables such as carrots, spinach, and
@@ -267,74 +286,52 @@
 
                     {% endif %}
 
-                    {% endfor %}
 
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
-                                {% for choice in Random_choicess%}
-                                {% if choice.category == 'Fruits' %}
-                                {% for obj in obj1 %}
-                                <div class="col-md-6 col-lg-4 col-xl-3 d-flex">
-                                    <div class="rounded position-relative fruite-item border border-secondary">
-                                        <div class="fruite-img">
-                                            <img src="{{ obj.image.url }}" alt="{{ fruit.product_name }}">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; left: 10px;">Fruits</div>
-                                        <div class="p-4 border-top-0 rounded-bottom mt-auto">
-                                            <h4>{{ obj.product_name }}</h4>
-                                            <p>{{ obj.description }}</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">{{ obj.price }}</p>
+                              
+                                
+                                    {% for obj in obj1 %}
+                                    <div class="col-md-6 col-lg-4 col-xl-3 d-flex">
+                                        <div class="rounded position-relative fruite-item border border-secondary">
+                                            <div class="fruite-img">
+                                                <img src="{{ obj.image.url }}" alt="{{ fruit.product_name }}">
+                                            </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                style="top: 10px; left: 10px;">Fruits</div>
+                                            <div class="p-4 border-top-0 rounded-bottom mt-auto">
+                                                <h4>{{ obj.product_name }}</h4>
+                                                <p>{{ obj.description }}</p>
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ obj.price }}</p>
 
-                                                <a href="{% url 'fruit_to_cart' obj.id request.path %}"
-                                                    class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
-                                                    to cart
-                                                </a>
+                                                    <a href="#"
+                                                        class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
+                                                        to cart
+                                                    </a>
 
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                {% endfor %}
-                                {% elif choice.category == 'Vegetables' %}
-                                {% for obj in obj2 %}
-                                <div class="col-md-6 col-lg-4 col-xl-3 d-flex">
-                                    <div class="rounded position-relative fruite-item border border-secondary">
-                                        <div class="fruite-img">
-                                            <img src="{{ obj.image.url }}" alt="{{ fruit.product_name }}">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                            style="top: 10px; left: 10px;">Fruits</div>
-                                        <div class="p-4 border-top-0 rounded-bottom mt-auto">
-                                            <h4>{{ obj.product_name }}</h4>
-                                            <p>{{ obj.description }}</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">{{ obj.price }}</p>
-                                                <a href="{% url 'fruit_to_cart' obj.id request.path %}"
-                                                    class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
-                                                    to cart
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                {% endif%}
-                                {% endfor %}
+                                    {% endfor %}
+
+                     
+                                
+                               
                             </div>
                         </div>
                     </div>
+            
 
                 </div>
             </div>
         </div>
-    </div>
-    {% endif %}
+         {% endif%}
+</div>
 </div>
 </div>
 </div>

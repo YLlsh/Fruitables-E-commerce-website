@@ -6,6 +6,28 @@
 
 <!-- Modal Search End -->
 
+<style>
+    #suggestions .list-group-item {
+    border: none;
+    padding: 12px 18px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+/* Hover Effect */
+#suggestions .list-group-item:hover {
+    background-color: #f1f3f6;
+    color: #0d6efd;
+}
+
+/* link remove underline */
+#suggestions a {
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+</style>
 <!-- Hero Start -->
 <div class="container-fluid py-5 mb-5 hero-header">
     <div class="container py-5">
@@ -19,7 +41,7 @@
                     <form method="get" action="{% url 'index' %}">
                         <input id="indexInput"
                             class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text"
-                            name="q" placeholder="Search">
+                            name="q" placeholder="Search" autocomplete="off">
 
                         <!-- its give as suggestions -->
                         <ul id="suggestions" class="list-group position-absolute mt-2 w-75" style="z-index: 1000;"></ul>
@@ -33,7 +55,48 @@
                     </form>
 
                 </div>
+                <script>
+const input = document.getElementById("indexInput");
+const suggestionBox = document.getElementById("suggestions");
 
+input.addEventListener("keyup", function () {
+
+    let query = this.value;
+
+    if (!query) {
+        suggestionBox.innerHTML = "";
+        return;
+    }
+
+    fetch(`/product_detail/search-suggestions/?q=${query}`)
+        .then(response => response.json())
+        .then(data => {
+
+            suggestionBox.innerHTML = "";
+
+            data.forEach(product => {
+
+                let a = document.createElement("a");
+
+                // 🔥 dynamic django url
+                a.href = `/search_result/${product.id}`;
+
+                a.classList.add("text-decoration-none","text-dark");
+
+                a.innerHTML = `
+                    <li class="list-group-item">
+                        ${product.name} - ₹${product.price}
+                    </li>
+                `;
+
+                suggestionBox.appendChild(a);
+            });
+        });
+});
+</script>
+
+                
+<!-- 
                 {% if results %}
 
 
@@ -52,17 +115,18 @@
                 </ul>
 
 
-                {% endif %}
+                {% endif %} -->
             </div>
+            
 
 
 
             <!-- script for suggestions -->
 
-            <script>
+            <!-- <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     const input = document.querySelector("input[name='q']");
-                    const suggestions = document.getElementById("suggestions");
+                    // const suggestions = document.getElementById("suggestions");
 
                     input.addEventListener("input", function () {
                         const query = input.value.trim();
@@ -100,7 +164,7 @@
                         setTimeout(() => suggestions.innerHTML = "", 100);
                     });
                 });
-            </script>
+            </script> -->
 
             <!-- end scritp suggestions -->
 
@@ -245,7 +309,7 @@
                                                     <p>{{ fruit.description }}</p>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">{{ fruit.price }}</p>
-                                                        <a href="{% url 'fruit_to_cart' fruit.id request.path%}"
+                                                        <a href="{% url 'add_to_cark' fruit.id %}"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary">
                                                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
                                                             to cart
@@ -287,7 +351,7 @@
                                                     <p>{{ veg.description }}</p>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">{{ veg.price }}</p>
-                                                        <a href="{% url 'vegetable_to_cart' veg.id request.path %}"
+                                                        <a href="{% url 'add_to_cark' veg.id  %}"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary">
                                                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
                                                             to cart
@@ -382,7 +446,7 @@
                         <p>{{ veg.description }}</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
                             <p class="text-dark fs-5 fw-bold mb-0">₹{{ veg.price }}</p>
-                            <a href="{% url 'vegetable_to_cart' veg.id request.path %}"
+                            <a href="{% url 'add_to_cark' veg.id %}"
                                 class="btn border border-secondary rounded-pill px-3 text-primary">
                                 <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                             </a>
@@ -494,7 +558,7 @@
                                 <i class="fas fa-star"></i>
                             </div>
                             <h4 class="mb-3">₹{{ veg.price }}</h4>
-                            <a href="{% url 'vegetable_to_cart' veg.id}"
+                            <a href="{% url 'add_to_cark' veg.id %}"
                                 class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                         </div>

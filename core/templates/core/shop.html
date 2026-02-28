@@ -45,9 +45,11 @@
                 <div class="row g-4">
                     <div class="col-xl-3">
                         <div class="input-group w-100 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords"
+                            <form method="get">
+                            <input type="search" value="{{keywords}}" name="keywords" class="form-control p-3" placeholder="keywords"
                                 aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                            <!-- <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span> -->
+                            </form>
                         </div>
                     </div>
                     <div class="col-6"></div>
@@ -107,11 +109,11 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <h4 class="mb-2">Price</h4>
-                                    <form method="get" action="{% url 'shop' %}" id="rangeForm">
-                                        <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput"
-                                            min="0" max="1000" value="0" oninput="amount.value = this.value"
+                                    <form method="get" id="rangeForm">
+                                        <input type="range" class="form-range w-100" id="rangeInput"  name="rangeInput"
+                                            min="0" max="1000" value="{{use_range}}" oninput="amount.value = this.value"
                                             onchange="document.getElementById('rangeForm').submit();">
-                                        <output id="amount" for="rangeInput">0</output>
+                                        <output id="amount" for="rangeInput">{%if use_range %}{{use_range}}{% else %}0{% endif %}</output>
                                     </form>
 
                                 </div>
@@ -242,17 +244,11 @@
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0">₹{{in_range.price}} kg</p>
 
-                                            {% if in_range.type == "fruit" %}
-                                            <a href="{% url 'fruit_to_cart' in_range.id request.path %}"
+                                            <a href="{% url 'add_to_cark' in_range.id %}"
                                                 class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
 
-                                            {% elif in_range.type == "veg" %}
-                                            <a href="{% url 'vegetable_to_cart' in_range.id request.path %}"
-                                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-
-                                            {% endif %}
+                                           
 
                                         </div>
                                     </div>
@@ -277,18 +273,11 @@
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0">₹{{choise.price}} kg</p>
 
-                                            {% if choise.type == "fruit" %}
-                                            <a href="{% url 'fruit_to_cart' choise.id request.path %}"
+                                            <a href="{% url 'add_to_cark' choise.id %}"
                                                 class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
 
-                                            {% elif choise.type == "veg" %}
-
-                                            <a href="{% url 'vegetable_to_cart' choise.id request.path %}"
-                                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-
-                                            {% endif %}
+                                           
                                         </div>
                                     </div>
                                 </div>
