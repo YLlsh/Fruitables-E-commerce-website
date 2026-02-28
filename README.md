@@ -1,21 +1,21 @@
-## 🛒 Fruitables-E-commerce-website
+## Fruitables-E-commerce-website
 Welcome to Fruitables, a modern and responsive e-commerce platform designed for selling fresh fruits and vegetables online. This platform allows users to browse products by prise range, Search with real-time suggetion, add items to their cart, and place orders with ease.
 
-### 🌱 Features
+### Features
 
 🔍 Product Search with real-time suggestions
 
-🛒 Cart & Checkout functionality with quantity selection 
+ Cart & Checkout functionality with quantity selection 
 
-✅ User Authentication (login/register/logout) 
+ User Authentication (login/register/logout) 
 
-📦 Order Management for both users and admins ---pending
+ Order Management for both users and admins ---pending
 
-📱 Fully responsive and mobile-friendly design
+ Fully responsive and mobile-friendly design
 
-🧾 Invoice generation and order summary -- pending
+ Invoice generation and order summary -- pending
 
-### 🏗️ Tech Stack 
+###  Tech Stack 
 #### Frontend:
 
 HTML5, CSS3, JavaScript with optional frameworks Bootstrap
